@@ -1,0 +1,33 @@
+﻿@using StudentRegistrationProject.Models;
+@model List<Student>
+
+@if (Model.Any())
+{
+    int i = 0;
+    foreach (var item in Model)
+    {
+        i++;
+        <tr>
+            <td>@i</td>
+            <td>@item.Name</td>
+            <td>@item.Father</td>
+            <td>@item.DOB</td>
+            <td>@item.Mobile</td>
+            <td>@item.Email</td>
+            <td>@item.State</td>
+            <td>@item.District</td>
+            <td>@item.Address</td>
+            <td>@item.Class</td>
+            <td>
+                <a class="btn btn-success" onclick="btnEdit(@item.Id)">Edit</a>
+                <a class="btn btn-danger" onclick="btndelete(@item.Id)">Delete</a>
+            </td>
+        </tr>
+    }
+}
+else
+{
+    <tr>
+        <td colspan="10">No Data Found</td>
+    </tr>
+}

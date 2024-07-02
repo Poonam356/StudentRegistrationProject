@@ -1,0 +1,53 @@
+﻿<h1>Student List</h1>
+<div class="col-sm-12 text-end">
+    <button type="button" onclick="btnEdit(0)" class="btn btn-primary">+Add</button>
+</div>
+<br />
+<div class="table-responsive">
+    <table class="table table-bordered" id="tbllist">
+        <thead class="table-dark">
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>FatherName</th>
+                <th>DOB</th>
+                <th>Mobile</th>
+                <th>Email</th>
+                <th>State</th>
+                <th>District</th>
+                <th>Address</th>
+                <th>Class</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+<div id="partialview"></div>
+<script src="jquery-3.7.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    function loadData() {
+        $.post('/Student/Get').done(function (result) {
+            $('#tbllist tbody').html(result);
+        }).fail(function (xhr) {
+            console.error(xhr.responseText);
+        });
+    }
+    loadData();
+    function btnEdit(id) {
+        $.post('/Student/RegistrationForm', { id: id }).done(function (result) {
+            $('#partialview').html(result);
+        }).fail(function (xhr) {
+            console.error(xhr.responseText);
+        });
+    }
+    function btndelete(id) {
+        $.post('/Student/Delete', { id: id }).done(function (result) {
+            alert('Are you sure to Delete');
+            loadData();
+        }).fail(function (xhr) {
+            console.error(xhr.responseText)
+        });
+    }
+</script>
