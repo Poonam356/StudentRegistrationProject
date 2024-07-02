@@ -9,7 +9,7 @@ namespace StudentRegistrationProject.Models
         public string Name { get; set; }
         public string Father { get; set; }
         public string DOB { get; set; }
-        public int Mobile { get; set; }
+        public string Mobile { get; set; }
         public string Email { get; set; }
         public string State { get; set; }
         public string District { get; set; }

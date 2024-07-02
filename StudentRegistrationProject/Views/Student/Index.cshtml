@@ -1,34 +1,55 @@
-﻿<h1>Student List</h1>
-<div class="col-sm-12 text-end">
-    <button type="button" onclick="btnEdit(0)" class="btn btn-primary">+Add</button>
+﻿<div class="row">
+    <h2>Student List</h2>
+    <div class="col-sm-12 text-end">
+        <button type="button" onclick="btnEdit(0)" class="btn btn-primary">+Add</button>
+    </div>
+    <div id="partialview"></div>
+    <br />
+    <div class="col-sm-8"></div>
+    <div class="col-sm-4 mb-2">
+        <div class="input-group">
+            <input type="text" placeholder="Search by mobileno." id="txtSearch" class="form-control" />
+            <div class="input-group-append">
+                <span class="btn btn-outline-primary" id="btnSearch">SEARCH</span>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-sm-12">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="tbllist">
+                <thead class="table-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>FatherName</th>
+                        <th>DOB</th>
+                        <th>Mobile</th>
+                        <th>Email</th>
+                        <th>State</th>
+                        <th>District</th>
+                        <th>Address</th>
+                        <th>Class</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
 </div>
-<br />
-<div class="table-responsive">
-    <table class="table table-bordered" id="tbllist">
-        <thead class="table-dark">
-            <tr>
-                <th>#</th>
-                <th>Name</th>
-                <th>FatherName</th>
-                <th>DOB</th>
-                <th>Mobile</th>
-                <th>Email</th>
-                <th>State</th>
-                <th>District</th>
-                <th>Address</th>
-                <th>Class</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
-</div>
-<div id="partialview"></div>
+
+
+
 <script src="jquery-3.7.1.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
+    $('#btnSearch').click(function () {
+        loadData();
+    })
     function loadData() {
-        $.post('/Student/Get').done(function (result) {
+        let mobileNo = $('#txtSearch').val();
+        $.post('/Student/Get?mobileNo=' + mobileNo).done(function (result) {
             $('#tbllist tbody').html(result);
         }).fail(function (xhr) {
             console.error(xhr.responseText);

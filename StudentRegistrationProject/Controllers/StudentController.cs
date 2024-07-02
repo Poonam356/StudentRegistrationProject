@@ -59,19 +59,22 @@ namespace StudentRegistrationProject.Controllers
                     student.District,
                     student.Father,
                     student.State
-                    
+
                 }, commandType: CommandType.Text);
                 res = stu.FirstOrDefault() ?? res;
             }
             return Json(res);
         }
-        public IActionResult Get()
+        public IActionResult Get(string mobileNo)
         {
             var res = new List<Student>();
             using (var con = new SqlConnection(_connectionString))
             {
-                var sqlQuery = "Select * from tbl_Student";
-                var lists = con.Query<Student>(sqlQuery, commandType: CommandType.Text);
+                var sqlQuery = "Select * from tbl_Student WHERE mobile = @mobileNo OR @mobileNo = ''";
+                var lists = con.Query<Student>(sqlQuery, new
+                {
+                    mobileNo = mobileNo ?? string.Empty
+                }, commandType: CommandType.Text);
                 res = lists.ToList();
             }
             return PartialView(res);
