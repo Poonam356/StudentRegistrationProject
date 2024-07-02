@@ -49,6 +49,16 @@ namespace StudentRegistrationProject.Controllers
                 }
                 var stu = con.Query<string>(sqlQuery, new
                 {
+                    student.Id,
+                    student.Name,
+                    student.Email,
+                    student.DOB,
+                    student.Mobile,
+                    student.Address,
+                    student.Class,
+                    student.District,
+                    student.Father,
+                    student.State
                     
                 }, commandType: CommandType.Text);
                 res = stu.FirstOrDefault() ?? res;
